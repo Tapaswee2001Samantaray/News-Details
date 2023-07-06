@@ -3,7 +3,7 @@ import React from 'react';
 function NewsItem({ title, description, imageUrl, newsUrl }) {
   return (
     <div className="my-3">
-      <div className="card" style={{ width: "18rem" }}>
+      <div className="card">
         <img
           src={imageUrl !== null ? imageUrl : "https://images.hindustantimes.com/tech/img/2023/07/04/1600x900/1_1657962533894_1688440175056.jpg"}
           className="card-img-top"

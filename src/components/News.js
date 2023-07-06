@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import NewsItem from './NewsItem';
 import Spinner from './Spinner';
 
-function News({ pageSize }) {
+function News({ pageSize, country, category }) {
 
   const [data, setData] = useState([]);
   const [page, setPage] = useState(1);
@@ -10,7 +10,7 @@ function News({ pageSize }) {
   const [loading, setLoading] = useState(false);
 
   let getDetails = async () => {
-    let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=bc37fab760ca4cd690bb9a80e10dcc70&page=1&pageSize=${pageSize}`;
+    let url = `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=bc37fab760ca4cd690bb9a80e10dcc70&page=1&pageSize=${pageSize}`;
     setLoading(true);
     let getData = await fetch(url);
     let parsedData = await getData.json();
@@ -26,7 +26,7 @@ function News({ pageSize }) {
   async function handleNextClick() {
 
     if (!(page + 1 > Math.ceil(totalResults / pageSize))) {
-      let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=bc37fab760ca4cd690bb9a80e10dcc70&page=${page + 1}&pageSize=${pageSize}`;
+      let url = `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=bc37fab760ca4cd690bb9a80e10dcc70&page=${page + 1}&pageSize=${pageSize}`;
       setLoading(true);
       let getData = await fetch(url);
       let parsedData = await getData.json();
@@ -37,7 +37,7 @@ function News({ pageSize }) {
   }
 
   async function handlePrevClick() {
-    let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=bc37fab760ca4cd690bb9a80e10dcc70&page=${page - 1}&pageSize=${pageSize}`;
+    let url = `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=bc37fab760ca4cd690bb9a80e10dcc70&page=${page - 1}&pageSize=${pageSize}`;
     setLoading(true);
     let getData = await fetch(url);
     let parsedData = await getData.json();
@@ -48,7 +48,7 @@ function News({ pageSize }) {
 
   return (
     <div className="container my-3">
-      <h1 className="text-center">News Monkey - Top Head Lines</h1>
+      <h1 className="text-center" style={{margin: "30px 0px"}}>News Monkey - Top Head Lines</h1>
       {loading && <Spinner />}
       <div className="row">
         {!loading && data.map((element) => {
